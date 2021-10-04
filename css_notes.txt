@@ -1,0 +1,66 @@
+SELECTOR {property: value}
+div.bold-text {font-weight: 700;}
+
+Selector types (in reverse order of precedence, most specific wins):
+- Universal - * { color: purple; }
+- Type - div { color: purple; }
+- Class - .alert-text { color: purple; } (applies to <div class="alert-text">)
+- ID - #title {color: purple; } (applies to <div id="title">
+	^^^case sensitive!
+
+Class v ID: element can have 1 ID, but can have multiple classes. An ID cannot be repeated on a single page.
+
+Grouping selectors:
+Instead of two separate selectors sharing property + value combos, combine like this --
+	.read,
+	.unread {
+		color: white;
+		background-color: black;
+	}
+
+	.read { unique stuff }
+	.unread { unique stuff }
+
+Chaining selectors:
+If you want to apply a certain style to specific linked selectors. E.g., make the text RED for both the subsection and header IFF both classes are being applied at the same time; DO NOT make text red for just the subsection or header classes --
+	.subsection.header { color: red; } APPLIES TO <div class="subsection header">
+		AND IT WILL ALSO INCLUDE ANY STYLING IN .subsection and .header class specs
+
+Descendant combinator (note that when you add another selector, it's more specific, so it takes precedence):
+If you want to apply a certain style to a selector IFF it is a descendant of another (or multiple) named classes --
+	.ancestor .contents { color: red; }
+	APPLIES TO
+	<div class="ancestor">not here, this is the parent (and note, I'm not closing the div here)
+	<div class="contents">but here, because this is the child of it all</div>
+	<div class="contents">and here, because this is also under the ancestor div</div>
+	</div>
+
+You can nest as deep as you want to target a specific child!
+	.ancestor .contents .evenmore .themost {color: blue;}
+	APPLIES TO
+	<div class="ancestor">not here
+		<div class="contents">not here
+			<div class="evenmore">not here either
+				<div class="themost">but here!</div>
+			</div>
+		</div>
+	</div>
+
+
+When defining image sizes, it's best practice to include both height and width (even if one is just AUTO) because it will make a space reservation when loading the page. Otherwise, with lazy page loading, you'll have dynamic adjustments causing text to move all over the screen once the image does load.
+
+Inheritance: Typography-based properties are usually inherited (color, font-size, font-family, etc.)
+
+Adding CSS to web pages:
+- External CSS
+	<head>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+- Embedded CSS
+	<head>
+		<style>
+			. . .
+		</style>
+	</head>
+- Inline CSS (most specific, overrides other things)
+	<p><div style="color: white; background-color: black;">...</div></p>
