@@ -64,3 +64,57 @@ Adding CSS to web pages:
 	</head>
 - Inline CSS (most specific, overrides other things)
 	<p><div style="color: white; background-color: black;">...</div></p>
+
+Boxing
+	- margin
+		space between a box and any others next to it
+		margin-top
+		margin-right
+		margin-bottom
+		margin-left
+
+		need to center an element like a button? can use display: block and margin: 0 auto
+	- padding
+		space between the edge of a box and the contents in it
+	- border
+		space between the margin and the padding
+			border-top . . .
+			border-width (px)
+			border-style (dotted, double, solid)
+			border-color (color)
+			border-top-width . . .
+
+margin collapsing: separation of boxes by the vertical margin of one, not both, of the boxes
+
+	*** box-sizing: border-box;
+		By default, browsers use the standard box model (Size is a manual summation of height or width + margin + padding).
+		If you want to turn on the alternative model for an element, you do so by setting box-sizing: border-box on it.
+
+		If you want all of your elements to use the alternative box model, and this is a common choice among developers, set 
+		the box-sizing property on the <html> element, then set all other elements to inherit that value.
+
+	Negative margins can be used to pull things tighter
+
+Inline and Block display
+
+	inline elements do what they sound like they do - they sit inline. if you overflow an element, it will wrap to the next line.
+	*** display: inline; vs display: block
+		inline doesn't break a box onto a new line
+			doesn't apply width/height
+			not affect other boxes with vertical padding, margins, or borders
+			will affect other boxes with horizontal padding, margins, and borders
+		block is default
+		inline-block is an option
+			unlike inline, inline-block allows width and height set
+			inline-block respects top and bottom margins and paddings
+			unlike block, inline-block doesn't force a line break after the element (so you can put boxes SxS)
+
+		examples of block and inline default elements: https://www.w3schools.com/html/html_blocks.asp
+	
+	display: flex
+		causes outer display to be block, and inner to be flex
+		flex breaks outer onto a new line (and takes full 100% width of the page), but content will look inline (like li will all on one line)
+
+	display: inline-flex
+		like flex, except creating an outer inline box around the flex items
+
