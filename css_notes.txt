@@ -118,3 +118,137 @@ Inline and Block display
 	display: inline-flex
 		like flex, except creating an outer inline box around the flex items
 
+Flexbox
+	"Has become default way of positioning elements on pages"
+
+	Why use? Per MSDN:
+
+		In a perfect world of browser support, the reason you'd choose to use flexbox is because you want to lay a collection
+		of items out in one direction or another. As you lay out your items you want to control the dimensions of the items in
+		that one dimension, or control the spacing between items. These are the uses that flexbox was designed for. You can 
+		read more about the difference between flexbox and CSS Grid Layout in Relationship of Flexbox to other layout methods, 
+		where we discuss how flexbox fits into the overall picture of CSS Layout.
+
+		In reality we also often use Flexbox for jobs that might be better done by Grid Layout, as a fallback for Grid, and also 
+		in order to get alignment capabilities. This is something that may well change once Box Alignment is implemented in 
+		Block Layout.
+
+	Arranging items in responsive rows or columns
+
+		display: flex;
+			(inline-flex also an option)
+		flex: #;
+
+	A flex container is any element with display: flex on it.
+	A flex item is any element living inside of flex container.
+	Any element can be both a flex container and a flex item.
+
+	Flexbox alone can be used to create complex box layouts.
+
+	Defaults: flex: 0 1 0%;
+		- flex-grow
+			If only one value defined, it applies to grow
+			Value of 0 (default) = no growth
+			Value of 1 in container = every div, grow the same amount
+			Value of 2 in div = this div, specifically, grows to 2x others
+		- flex-shrink
+			Only applied if size of all flex /items/ > size of parent container.
+			Value of 1 (default) = all items shrink evenly
+			Value of 0 = do not allow item(s) to shrink
+				No shrink on one item will cause other items to shrink at a higher rate
+			Value > 1 = shrink item(s) at a higher rate than normal
+		- flex-basis
+			Sets the initial size of a flex item (baseline)
+			Value of Auto (default when not using shorthand) = sizes based on pages and respects height and width declarations
+			Value of 0 (default if using shorthand) = ignores item's width, and starts calcs at 0
+	
+	Generally, most folks use flex: 1 to make divs grow evenly, and flex-shrink: 0 to keep certain ones from shrinking.
+	Rare need to do the highly complex layouts (but you can).
+
+		flex: initial looks useful (sets to 0 1 auto)
+		flex: auto also looks useful instead of 1 (sets to 1 1 auto)
+
+	Flexboxes can work horizontal or vertical
+		flex-direction: column;
+		flex-direction: row; (default)
+
+		^^^ Both can also be -reverse, which would be R->L reading
+
+		All flex boxes have two axes - the main axis and the cross axis
+
+		row = puts main axis horizontal
+			flex-basis responds to width property
+		column = puts main axis vertical
+			flex-basis responds to height property
+
+		Putting it in column STACKS the items, not rotate
+	
+	Flex can be used for specific sizes and alignments, too.
+		justify-content: space-between
+			Added to the container, spaces items evenly, across main axis, no space added to far left or right of line
+		justify-content: center
+			Centers the items in the container
+		: flex-start (default)
+			Aligns at start of flex box
+		: flex-end
+		: center
+		: space-around
+			Equal space on left and right of line, and equal space between items
+		: space-evenly
+			Equal space on left and right of line necessarily matching space between items
+	
+		justify-content used to align on **main axis**
+		align-items used to align on **cross axis**
+			default for align-items = stretch
+			Value of flex-start = items align at start (top) of flex container
+			Value of flex-end = end of container
+			Value of center = center of container
+
+		align-self
+			Use this for manipulating one item only
+			Controls alignment of the individual item on the cross axis, no impact to any other items
+			Same property sets can be used as align-items, plus "auto" which resets it to that of the flex container
+
+		align-content
+			flex-start, flex-end, center, space-between, space-around, stretch, space-evenly
+			Use to control space between the rows (e.g., you wrapped a multi-line flex container and you don't want each line to be at default top left)
+			
+		"gap" property can be set on containers
+			works similar to setting margin on items themselves
+
+	flex-flow: row nowrap; (defaults)
+		- flex-direction not included in the shorthand (more notes above)
+		- flex-wrap not included in the shorthand, but can be used (default is nowrap)
+			So you could say "no shrink, but wrap" to prevent overflow
+			Value of nowrap (default) = forces single line space distribution
+			Value of wrap = allows items to wrap to next line as needed
+
+	Use cases for flex:
+		Navigation bars (even spacing)
+		Split navigation (most buttons on left, one on right); see this example:
+			nav ul {
+				display: flex;
+				margin: 0 -10px;
+				}
+				nav li {
+					margin: 0 10px;
+				}
+				.push-right {
+				margin-left: auto;
+				}
+			<nav>
+			<ul>
+				<li><a href="#">Page 1</a></li>
+				<li><a href="#">Page 2</a></li>
+				<li><a href="#">Page 3 is longer</a></li>
+				<li class="push-right"><a href="#">Page 4</a></li>
+			</ul>
+			</nav>
+		Card layout, keeping footer at the bottom of the card no matter what
+			Change flex-direction to column on the card (container)
+			Then set item content area (the main text of the card) to 1 1 0 (flex: 1) allowing it to grow and shrink
+			So now, the content div is the only one that can grow and shrink, it will take up ALL available space and push the footer to the bottom
+		Forms
+			Really easy form building by setting your wrapper to display: flex
+			Then each field is a flex item that you can control positioning on with flex: 1 1 auto, 2 1 auto, etc.
+
