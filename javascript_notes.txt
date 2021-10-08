@@ -13,3 +13,338 @@ INTRO: SELF TEST AS YOU GO
     What are assignment operators?
     What is the “Unary +” Operator?
 
+Comments: // at beginning of line
+
+console.log("Hello, World!")
+    - You can view this in the developer tooler > console. Handy for... debugging?
+
+variables
+    - Three ways to delcare:
+        1. var: old way, only weay before let/const
+        2. let: most common, new way
+        
+        3. const: an unchanging variable, cannot be reassigned
+
+        ** if files contains: "use strict";  then variables MUST be declared before use
+        ** by default, use strict is not used. as such, you can declare a variable by assignment only (like PowerShell)
+            num = 5; is valid, without doing a let, unless "use strict" is on.
+            in any case, ALWAYS declare with JavaScript.
+    
+    - Assign a value with the assignment operator (=)
+
+    - Access by calling by name
+
+        E.g. (verbose):
+            let message;
+            message = 'Hello!';
+            alert(message);
+        
+        E.g. (casual):
+            let message = 'Hello!';
+            alert(message);
+    
+    - Declare multiple variables in one line is possible, but harder to read:
+        let user = 'John', age = 25, message = 'Hello!'
+    - Multiline declaration also avaialble, a mix of the basic or the one liner option:
+        let user = 'John',
+            age = 25,
+            message = 'Hello!';
+
+    - DON'T DECLARE TWICE! Compile error...
+
+    - Variable naming limitations:
+        1. Variable may contain only letters, digits, or the symbols $ or _
+        2. The first character must not be a digit
+    
+    Casing
+        - Camel case preferred
+        - Variables are case sensitive
+        - If declaring an already-known constant (that is, doesn't require run time calcluations to declare),
+          it is common to do it in all caps. E.g., const COLOR_ORANGE = "#FF7F00";
+    
+numbers
+    - can write with our without decimal
+    - can write using scientific notation
+    - *** ALWAYS 64-bit floating point *** (also known as double data type)
+        Other languages: int, short, long, floating-point, etc.
+        JavaScript: stores in 64 bits.
+            the number (the fraction) stored in bits 0 - 51
+            the exponent in bits 52 - 62
+            the sign in bit 63
+    - Integers (#s w/o period or scientific notation accurate up to 15 digits)
+        let x = 999999999999999;   // x will be 999999999999999
+        let y = 9999999999999999;  // y will be 10000000000000000
+    - Decimals max at 17
+    - Floating point decimal math isn't always right...
+        let x = 0.2 + 0.1; results in 0.30000000000000004
+            ** fix it by multiplying and dividing (to get it out and back into decimal)
+            ** let x = (0.2 * 10 + 0.1 * 10)  / 10; results in 0.3
+    - For all operators EXCEPT (+), JavaScript will attempt to convert any numerical strings ("10", e.g.) to a number and math it.
+        Convert a numeric STRING to a NUMBER with the function... Number()
+        EX: let myNumber = '24';
+            Number(myNumber) + 3;
+    
+    - NaN - a JavaScript reserved word indicating a number is not a legal number
+        - let x = 100 / "Apple"; // x will be NaN
+        - Can check is isNaN();
+            isNaN(someValue);
+        - NaN is considered a number
+
+    - Infinity (or, -Infinity) represents a number outside of the largest calcuable number
+        Ex 1: Executes forever
+            let myNum = 2;
+            while (myNum != Infinity) {
+                myNum = myNum + myNum;
+            }
+        Ex 2: Divide by 0 and break the universe
+            let x = 2 / 0;
+            // x will be Infinity
+            let y = -2 / 0;
+            // y will be -Infinity
+        - Infinity is considered a number
+                typeof Infinity; //returns number
+
+    Hexadecimal is an option
+        - JavaScript interprets numberic constants as Hexadecimal if they are preceded by 0x.
+            let x = 0xFF; // x will be 255
+        
+    ** NEVER write a number with a leading 0. Some versions of JavaScript interprets as octal if written this way.
+
+    Bases
+         2 - Binary - uses 0-1 in each column
+         8 - Octal - uses 0-7 in each column
+        10 - Decimal (default) - uses 0-9 in each column
+        16 - Hexadecimal - uses 0-9 and then a-f in each column
+
+        Output from base 2 to base 36 by using toString();
+            Ex: let myNum = 32;
+                    myNum.toString(10); //returns 32
+                    myNum.toString(2); //returns 100000
+
+Round numbers by using a method! The method is... toFixed()
+    EX: 1.723.toFixed(2) gets ya 1.72
+
+Numbers can be Objects, BUT DON'T DO THIS BECAUSE IT COMPLICATES CODE AND SLOWS DOWN EXECUTION SPEED
+    Use keyword "new" to define number as an object.
+
+    EX: let y = new Number(123);
+        typeof y; //returns object, not number
+
+    Don't use because:
+        # == new # // true
+        # === new # // false, b/c not same type
+        new # == new # // false because objects can't be compared
+
+Operators
+    + operator
+        - Used to both concantenate and to add
+        - "10" + 20 = 1020
+        - 10 + 20 = 30
+        - 10 + "20" = 1020
+        - Common mistake:
+            let x = 10;
+            let y = 20;
+            let z = "the result is: " + x + y;
+            Expect: 30
+            Outputs: the result is: 1020
+        - Leads to this common mistake:
+            let x = 10;
+            let y = 20;
+            let z = "30";
+            let result = x + y + z;
+            Expect: 102030 (because a string is involved, right?)
+            Outputs: 3030
+            *** Take away: JavaScript interpreter goes left to right. Once a string is seen, it concatinates. Until a string is seen, it adds.
+
+    == operator
+        - expects equality in value
+        - "equal"
+
+    === operator
+        - expects equality in both type and value
+        - "strict equal"
+
+    - operator
+        - subtraction
+
+    * operator
+        - multiplication
+
+    ** operator
+        - exponention
+            EX: 5 ** 2 results in 25 (5 squared)
+        - same result as using Math.pow(x,y)
+            EX: Math.pow(5,2); //result is 25
+
+    / operator
+        - division
+
+    % operator
+        - modulus (remainder)
+            EX: 5 / 2 is 2 with a remainder of 1
+                type as 5 % 2, and the result will be "1"
+
+    ++ operator
+        - increment
+
+    -- operator
+        - decrement
+    
+    Operator precedence:
+
+        Value	Operator	Description	        Example
+        21  	( )	        Expression grouping	(3 + 4)
+
+        20	    .	        Member	            person.name
+        20	    []	        Member	            person["name"]
+        20	    ()	        Function call	    myFunction()
+        20	    new	        Create	            new Date()
+        18	    ++	        Postfix Increment	i++
+        18	    --	        Postfix Decrement	i--
+        17	    ++      	Prefix Increment	++i
+        17	    --      	Prefix Decrement	--i
+        17	    !       	Logical not     	!(x==y)
+        17  	typeof  	Type            	typeof x
+
+        16  	**      	Exponentiation  	10 ** 2
+        15  	*       	Multiplication  	10 * 5
+        15	    /       	Division        	10 / 5
+        15	    %       	Division Remainder	10 % 5
+        14  	+       	Addition        	10 + 5
+        14	    -       	Subtraction	        10 - 5
+
+        13  	<<	        Shift left      	x << 2
+        13	    >>	        Shift right	        x >> 2
+        13	    >>>     	Shift right     	x >>> 2
+
+        12  	<   	    Less than       	x < y 
+        12	    <=	        Less than or equal	x <= y
+        12	    >	        Greater than	    x > y
+        12	    >=	        Greater than equal	x >= y
+
+        12	    in	        Property in Object	"PI" in Math
+        12	    instanceof	Instance of Object	instanceof Array
+                    
+        11  	==      	Equal           	x == y
+        11  	===     	Strict equal    	x === y (typically results in fewer errors, perfer this over not strict)
+        11  	!=      	Unequal         	x != y
+        11  	!==     	Strict unequal  	x !== y (typically results in fewer errors, prefer this over not strict)
+                    
+        10	    &	        Bitwise AND     	x & y
+        9	    ^	        Bitwise XOR	        x ^ y
+        8	    |	        Bitwise OR	        x | y
+        7	    &&	        Logical AND	        x && y
+        6	    ||	        Logical OR	        x || y
+        5	    ??      	Nullish Coalescing	x ?? y
+        4	    ? :         Condition          	? "Yes" : "No"
+                    
+        3	    +=	        Assignment	        x += y (x = 10; y = 5; x += y; // x returns 15)
+        3   	/=	        Assignment      	x /= y
+        3   	-=	        Assignment      	x -= y
+        3	    *=	        Assignment	        x *= y (x = 10; y = 5; x *= y; //x returns 50 - it basically is a way to manipulate the variable with math done on itself)
+        3	    %=	        Assignment	        x %= y
+        3	    <<=	        Assignment	        x <<= y
+        3	    >>=	        Assignment	        x >>= y
+        3	    >>>=	    Assignment	        x >>>= y
+        3	    &=	        Assignment	        x &= y
+        3	    ^=	        Assignment	        x ^= y
+        3	    |=      	Assignment	        x |= y
+                    
+        2	    yield	    Pause Function	    yield x
+        1	    ,       	Comma	            5 , 6
+
+        Expressions in parentheses are fully computed before the value is used in the rest of the expression.
+
+METHOD: .addEventListener(when,dowhat)
+        EX: 
+            <button>Start machine</button>
+            <p>Thee machine is currently stopped.</p>
+            
+            const btn = document.querySelector('button'); //this is where we attach to the HTML element I expects
+            const txt = document.querySelector('p'); //like the last one, attaching to the p element
+
+            btn.addEventListener('click', updateBtn);
+
+            function updateBtn() {
+                if (btn.textContent === 'Start machine') {
+                    btn.textContent = 'Stop machine'; //because the button was clicked, make the button the opposite of what it was
+                    txt.textContent = 'Now the machine is running!'; //and make the text area confirm that it was clicked
+                } else {
+                    btn.textContent = 'Start machine';
+                    txt.textContent = 'Its stopped';
+                }
+            }
+
+JavaScript Data types
+    There are 8!
+
+    Number - covered above
+
+    BigInt - handles big numbers like ones for crypto, etc.
+        - specified by adding an 'n' at the end of the number
+        EX: const myBigNum = 1234567890987654321123456789n;
+    
+    String - you know what a string is
+        - three ways:
+            double quote "hi";
+            single quotes: 'hi';
+            backticks (known as template literals):
+                `hi, i can embed from another ${str}`;
+                `i can also embed expressions like this: ${1+2}`;
+                easier this way than concantnating: "Hi" + name + "." vs `Hi ${name}.`
+        - can mix like this: "It's me!";
+        - or like this: 'Hey "bob", if that is your real name";
+        - but you might need an escape character like this: 'Hey "bob", if that\'s your real name";
+        
+        - List of string methods: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+            .length - returns length (like PowerShell did, too)
+            .slice(start,end) - returns the text between those characters. if negative, starts at end of line.
+                - if you only include start, method will slice out rest of string
+                - it RETURNS the slice you are taking
+            .substring(start,end) - like slice, but can't handle negatives
+            .substr(start,length) - like slice, but specifies length of extracted part (not end character of it)
+            .replace(what,withwhat) - like PowerShell
+                - by default, replaces only the first match
+                    - to replace all, use a regular expression with a /g flag
+                      EX: text.replace(/what/g, "withwhat")
+                - by default, case sensitive
+                    - to make case insensitive, use a regular expression with an /i flag
+                      EX: text.replace(/WhAT/i, "withwhat")
+            .toUpperCase()
+            .toLowerCase()
+            .concat(text1,text2) - concantinates as a method, can be used instead of the plus operator
+                EX: these are the same
+                    "hello" + " " + "world!"
+                    "hello".concat(" ", "World!")
+            .trim() - removes whitespace from both sides of a string
+            .padStart(totalChars,withwhat) - will put as many "withwhat"s to reach total string characters as needed
+            .padEnd(totalChars,withwhat)
+            .charAt(position) - returns the character at the position specified
+            .charCodeAt(position) - returns the unicode of the character
+            [] - property access on strings works
+                EX: text[5] returns the sixth character from the text string
+                Property access can be unpredictable with strings though...
+                    - BEWARE: it makes strings look like JavaScript arrays, but they aren'T
+                    - BEWARE: if no character found, you get undefined (not an empty string)
+                    - BEWARE: you can't set these. they are READ ONLY.
+            .split(",") - splits on commas, like for a CSV import or somethin
+                - Results in the string converting to an array!
+    
+    Boolean (logical type) - true or false
+
+    null - represents nothing, empty, or value unknown in JavaScript (as opposed to a non-existing object or a null pointer)
+
+    undefined - represents value not assigned, like if a variable is declared but not assigned, then it is undefined
+
+    Object - special, stores collections of data
+
+    Symbol - creates unique identifiers for objects
+
+Escape character: \
+
+New line character: \n
+    - Only needed with single or double quotes
+    - Not needed with template literals (backticks) because they respect line breaks in the source code.
+        This would actually show a linebreak:
+            output = `I like ${foodName}.
+            It is my favorite food.`

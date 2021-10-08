@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+    <button>Start machine</button>
+    <p>Thee machine is currently stopped.</p>
+  <script>
+    // Your JavaScript goes here!
+    console.log("Hello, World!")
+    // javascript.info task 1
+    let admin, name;
+    name = 'John';
+    admin = name;
+    alert(admin);
+    // javascript.info task 2
+    const OUR_PLANET = 'Earth';
+    let currentVisitor;
+
+    const btn = document.querySelector('button'); //this is where we attach to the HTML element I expects
+    const txt = document.querySelector('p'); //like the last one, attaching to the p element
+
+    btn.addEventListener('click', updateBtn);
+
+    function updateBtn() {
+        if (btn.textContent === 'Start machine') {
+            btn.textContent = 'Stop machine'; //because the button was clicked, make the button the opposite of what it was
+            txt.textContent = 'Now the machine is running!'; //and make the text area confirm that it was clicked
+        } else {
+            btn.textContent = 'Start machine'; //has to be the same as the original config in the HTML, else it won't be recognized if clicked again.
+            txt.textContent = 'Its stopped!';
+        }
+    }
+    console.log (23 + 97);
+    let myDog = 1 + 1 + 1 + 1 + 1 + 1;
+    console.log (myDog);
+    console.log ((4+6+9)/77)
+    let string = 'test';
+    string;
+  </script>
+</body>
+</html>
