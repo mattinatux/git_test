@@ -460,3 +460,48 @@ If/Else/Switch
                         let login = 'director';
                         let message = (login == 'employee') ? 'Hello' : (login == 'director') ? 'Greetings, D' : 'who are you?'
 
+JavaScript Developer Tools
+
+    HTML v DOM
+        - you request the HTML page
+        - HTML page contains elements, scripts, etc. Browser parses that out into the tree of objects (or, nodes), which is called the DOM.
+        - the DOM could be different than the HTML, e.g. in cases where a script changes content on the page.
+        * The DOM is the /current/ page content as displayed to the user
+
+    Debug JavaScript: Dev Tools > Sources Panel
+        - Event Listener Breakpoints can be inserted for debugging:
+            1. Event listener breakpoints section at bottom left of the dev tools (while in sources)
+            2. Choose the JavaScript file you want to debug at top left
+            2. Mouse > Click used as an example to pause between any click events
+    
+    Code editor - don't forget to SAVE if you want it to be active! :-)
+    
+    Breakpoints
+        Line-of-code - can set them on the line by clicking the number in the code editor
+            Can also add "debugger;" to code to get a pause. acts like a LoC breakpoint.
+        Conditional line-of-code - right click on the line, set the condition. useful if you want to stop there IF something else is true (like a variable being set to something, e.g.)
+            Can  manage these from the "breakpoints" pane
+        DOM change - to pause on code that changes a DOM node or its children
+            Do it from Elements tab > right click element > "break on . . ."
+                Subtree modifications - triggered when child of selected node is removed or added, or contents are changed. NOT triggered on child node attribute changes or any changes to the selected node itself
+                Attributes modifications - triggered when an attribute is added or removed on the currently-selected node, or when an attribute value changes
+                Node removal - triggered when currently-selected node is removed
+                SOOOOOO - you can monitor the children for content changes, additions, or removals, BUT NOT for attribute changes (as a whole). Attribute changes are node-monitoring-specific.
+        XHR/Fetch - to pause code when a specific string is presented in an XHR's request unpredictable
+            Useful for finding when a specific URL is being launched, e.g., can break on "org" being sent.
+            Can do it from Sources > XHR Breakpoints pane > Add breakpoint
+        Event Listener - from the event listener breakpoints pane
+        Exceptions - from the sources tab, click "pause on exceptions" stop sign box
+        Function - call debug(functionName)
+            Make sure the function you want to debug is within scope, else will get a ReferenceError
+
+    Step over - execute the code your passing over to get to the next pause, useful if the paused area isn't interesting
+    Step into - when you get to the interesting function, step into it to dig deeper
+    Step out - when you thought the function was interestig, but it really isn't and you want to continue on your quest
+
+    Continue to Here - right click on a line of code you want to inestigate and choose "Continue to Here"
+        results in all code being run up to that point, pausing at the start of the line chosen
+
+    Force script execution - to blow past your breakpoints and resume full execution, long click on the Resume Script Execution button (looks like play/pause) and choose to force.
+
+    Call Stack pane - when paused, view the call stack that got you to this point. 
