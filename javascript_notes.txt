@@ -198,12 +198,12 @@ Operators
         20	    .	        Member	            person.name
         20	    []	        Member	            person["name"]
         20	    ()	        Function call	    myFunction()
-        20	    new	        Create	            new Date()
+        20	    new	        Create	            new Date() (this one is useful; can instantiate a user-defined object or a built in object type with a contructor function, e.g., new date() works but date() alone doesn't)
         18	    ++	        Postfix Increment	i++
         18	    --	        Postfix Decrement	i--
         17	    ++      	Prefix Increment	++i
         17	    --      	Prefix Decrement	--i
-        17	    !       	Logical not     	!(x==y)
+        17	    !       	Logical not     	!(x==y) (this results in a t/f evaluation; saying "alert('hi');" returns "hi". saying "alert(!'hi');" returns "false". !!'hi' returns true.)
         17  	typeof  	Type            	typeof x
 
         16  	**      	Exponentiation  	10 ** 2
@@ -233,10 +233,10 @@ Operators
         10	    &	        Bitwise AND     	x & y
         9	    ^	        Bitwise XOR	        x ^ y
         8	    |	        Bitwise OR	        x | y
-        7	    &&	        Logical AND	        x && y
-        6	    ||	        Logical OR	        x || y
+        7	    &&	        Logical AND	        x && y (people improperly use this and || by doing things like "(X>0) && alert(something);" because JS evaluates the first statement, then moves on and will execute the next one (pending truthiness of first statement of course since it COULD break with a false if needed). don't do that.)
+        6	    ||	        Logical OR	        x || y (in conditional log, this is a "v". it is just an OR statement. a chain of these will return the first TRUE value it runs into, else returns false at the end. this allos stuff like short-circuit evals e.g., true || alert("not printed"; or perhaps false || alert("printed");)
         5	    ??      	Nullish Coalescing	x ?? y
-        4	    ? :         Condition          	? "Yes" : "No"
+        4	    ? :         Condition          	? "Yes" : "No" (usage-- condition ? value/code if true : value/code if false; used to assign a variable depending on a condition, shorter then a bunch of if statements and variable setting; e.g.: let (age > 18) ? true : false; [in this example though, age > 18 would actually not need the ?, because it is evaluated properly as t/f if age = a number])
                     
         3	    +=	        Assignment	        x += y (x = 10; y = 5; x += y; // x returns 15)
         3   	/=	        Assignment      	x /= y
@@ -350,4 +350,113 @@ New line character: \n
             It is my favorite food.`
 
 
-7:30a start 10/11
+Conditionals
+    Normal stuff mostly
+    Some things to keep in mind:
+        - a=0, b="0"
+            a is not a boolean, but b is because it is a string
+            but JavaScript converts the string to a number on the conditional, so a==b
+        - use strict equality (===)
+            ex: JavaScript cannot differentiate 0 from false:
+                alert(0 == false); // returns true
+            ex: same with an empty string: alert ('' == false); // returns true
+            - but with a strict equality, the types are noted as different, so it works out as expected
+
+    null === undefined: false
+    null == undefined: true
+        - when converted to numbers, null becomes 0 and undefined becomes NaN
+
+    equality checks work different than comparisons
+        - comparisons convert null to a number (0)
+            - so null >= 0 is true AND null > 0 is false
+        - equality check says without any conversions they must equal each Other
+            - so null == 0 false
+    
+    comparisons of 'undefined' will ALWAYS be false because:
+        - as a number, undefined becomes NaN and NaN always returns false when compared
+    undefined ONLY equals null or undefined
+    
+    Upshots:
+        - be really careful if doing anything but === with undefined/null
+        - be really careful comparing a variable that COULD BE null/undefined; if a variable COULD have the values, check for them separately first and wrap it
+
+If/Else/Switch
+    if (condition) {
+        // code block
+    } else if {
+        // code block
+    } else {
+        // code block
+    }
+
+    switch (expression) {
+        case x:
+            // code block
+            break;
+        case y:
+            // code block
+            break;
+        default:
+            // code block
+    }
+
+        Note: the "cases" are evaluated in order, so you include that break to get out if there is a match.
+                also, you can do evaluations in the case. E.g., case grade >= 90: letterGrade = "A"; break;
+        
+        Note: you can "skip over" cases to "group" things. E.g., case 0: case 1: case 2: console.log("WINTER"); break;
+
+        EX:
+            switch (new Date().getDay()) {
+            case 0:
+                day = "Sunday";
+                break;
+            case 1:
+                day = "Monday";
+                break;
+            case 2:
+                day = "Tuesday";
+                break;
+            case 3:
+                day = "Wednesday";
+                break;
+            case 4:
+                day = "Thursday";
+                break;
+            case 5:
+                day = "Friday";
+                break;
+            case  6:
+                day = "Saturday";
+            }
+
+                Exercises from https://javascript.info/ifelse:
+                    let answer = prompt("What's the day of the week?");
+                    let dow2 = new Date().getDay();
+                    switch (dow2) {
+                        case 1:
+                            dow2 = "Monday"
+                            break;
+                        case 2:
+                            dow2 = "Tuesday"
+                    }
+
+                    if (dow2 == answer) {
+                        alert('nice!');
+                    } else {
+                        alert('nope!');
+                    }
+
+                    let result;
+                    if (1 + 2 < 4) {
+                        result = 'Below';
+                    } else {
+                        result = 'Over';
+                    }
+
+                    changed these from if/else to one liners for practice, but try to not do this IRL!!
+                        
+                        let result = (1 + 2 < 4) ? "Below" : "Over";
+                        
+                        let login = 'director';
+                        let message = (login == 'employee') ? 'Hello' : (login == 'director') ? 'Greetings, D' : 'who are you?'
+
