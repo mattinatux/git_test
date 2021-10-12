@@ -505,3 +505,212 @@ JavaScript Developer Tools
     Force script execution - to blow past your breakpoints and resume full execution, long click on the Resume Script Execution button (looks like play/pause) and choose to force.
 
     Call Stack pane - when paused, view the call stack that got you to this point. 
+
+TOP Fundamentals Part 3
+    Functions
+        Built ins, like .replace(), .join(), and .random()
+
+        Functions vs Methods
+            Functions: a reusable code block to do a things
+            Methods: functions that are part of objects
+
+        Anonymous functions
+            Functions without a name. Typically used with event handlers.
+                
+                EX 1: this function would be invoked when a <button> element is available and clicked on the page
+                const myButton = document.querySelector('button');
+
+                myButton.onclick = function () {
+                    alert('hello');
+                }
+
+                EX 2: assigning an anonymous function to be the value of a variable. this function can be invoked using myGreeting();
+                const myGreeting = function () {
+                    alert('hello');
+                }
+            
+                But why do this? Just be easy and do function myGreeting() {alert('hello');}
+
+            *** MAINLY USED TO RUN CODE IN RESPONSE TO AN EVENT FIRING, like a button click, USING AN EVENT HANDLER
+
+                EX 3:
+                myButton.onclick = function() {
+                    // run all the code!
+                }
+
+    Function Scope - an important topic
+        Why does it matter?
+            Security
+                external scripts that you call in from elsewhere could change your code b/c they use same variable names and cause conflicts
+                can be malicious or accidental
+
+            Organization
+                it's like a zoo, keep the right animals together and don't force mingling
+
+            Conflict resolution
+                First function/variable/declaration in wins. Others will be ignored.
+                Subsequent variable declarations will result in an error.
+        
+        Global scope - Top level - the zoo keeper with access to all enclosures (code)
+            Values defined here are accessible from EVERYWHERE in the code
+        
+        Local variables - variables defined in the function
+        Outer variables - variables defined a step up from a specific function
+            *Conflict resolution: If using let (not const) and there is a local and outer conflict, LOCAL wins
+        
+        Heirarchy and what sees what
+            Global declarations, e.g., let x = 12;
+                In-function declarations, e.g., function a() {let y = 2;}  
+
+            output(x); //works because x is global
+            output(y); //doesn't work because y is within function
+                must add output(y); to function, then call with a();
+
+            a function cannot access the information directly in another function -- different scopes
+            a function can access anything in the global, so output(x); from within the function works onclick
+
+            if you want to use something out of scope, you must pass value in as a parameter 
+    
+    Function-ception (functions inside functions)
+        Why?
+            Useful if you have a big complex function and want to break into sub-functions
+        
+        Be careful of scope
+            Just beacuse you declare a variable in the "master" function, doesn't mean it is defined inside the function definitions (where the code is being run in the sub functions)
+
+            EX: If you want to get a value into sub-functions, you must pass it in.
+                function myBiggie() {
+                    let myVal = 1;
+
+                    subFun1(myVal);
+                    subFun2(myVal);
+                    subFun3(myVal);
+                }
+
+                function subFun1(value) {
+                    console.log(value);
+                }
+                function subFun2(value) {
+                    console.log(value);
+                }
+                function subFun3(value) {
+                    console.log(value);
+                }
+    
+    Function return values
+        Some functions return info, some don't.
+
+        Keyword: return
+            EX:
+            button.onclick = function() {const result = 5 * 5; return result;}
+        
+        return; // without a value, causes function to exit immediately
+            QUESTION: What's the difference in "return" vs "break" then?
+            ANSWER: break exits (escapes) the for, while, and switches
+                    return exits the entire method being executed (potentially returning a value to the calling function/code)
+        
+    Function parameters
+        Go ahead, pass in some arguments.
+
+            EX: one param
+            function functionName(param) {
+                alert('This is the parameter: ' + param + '.');
+            }
+            
+            functionName('foo');
+        
+            EX: multiple params
+            function functionName(param1, param2, . . . paramN) {
+                // code
+            }
+
+            functionName('foo','fooey','fubar')
+
+        Default values
+            Like PowerShell.
+
+                EX: default values
+                function functionName(param1, param2 = 'defaultString') {
+                    alert('Parameter 1 is: ' + param1 + '. Parameter 2 is: ' + param2 + '.')
+                }
+
+                functionName('foo'); //results in Parameter 1 is: foo. Parameter 2 is defaultString.
+
+                EX: default values can use another function within
+                function functionName(param1, param2 = anotherFunction()) {
+                    alert('Parameter 1 is: ' + param1 + '. Parameter 2 is: ' + param2 + '.')
+                }
+
+            Default param is evaluated ervery time the function is called without the respective parameter.
+                That means: anotherFunction() isn't called at all if text is provided when running the function
+                That also means: anotherFunction() could get a different result at different times it is run
+            
+            Assigning default values post-declaration
+
+                EX:
+                function showMessage(text) {
+                    // code
+                    if (text === undefined) { // if the param is missing
+                        text = 'empty message';
+                    }
+
+                    alert(text);
+                }
+
+                showMessage(); // an empty argument results in "empty message"
+
+                EX: using OR (||)
+                function showMessage(text) {
+                    // if the text is undefined or falsy, set to 'empty'
+                    text = text || 'empty';
+                }
+
+    Arrow functions
+        Relatively new stuff with simple and concise syntax
+
+        let func = (arg1, arg2, ... argN) => expression
+            IS THE SAME AS
+        let func = function(arg1, arg2, ... argN) {
+            return expression;
+        }
+
+        EX: simple concrete example
+        let sum = (a, b) => a + b;
+            IS THE SAME AS
+        let sum = function(1, b) {
+            return a + b;
+        }
+            AND YOU USE IT THE SAME EITHER WAY
+        alert (sum(1,2));
+
+        EX: without arguments, keep the parentheses still
+        let sayHi = () => alert('hello!');
+        sayHi();
+    
+        EX: dynamic creation of an arrow function
+        let age = prompt("Age?", 18);
+
+        let welcome = (age < 18) ? 
+            () => alert('Hello') : 
+            () => alert('Greetings');
+
+        welcome();
+
+    That ol' JavaScript call stack
+        JavaScript is   single threaded
+                        non-blocking
+                        asynchronous
+
+        The call stack is a:
+            Last-In, First-Out (LIFO) data structure
+            containing the address at which execution will resume
+            and often local variables and parameters from each call.
+        
+        When one function calls another, that next one goes into the call stack (and the first stays, too)
+        As things are returned (or exited), that function gets removed from stack
+        
+        Stack trace
+            Keep in mind, just like when doing any debugging, the most recent calls are at the top.
+
+        Stack overflow
+            E.g., function foo() { return foo(); } // returns itself, so calls itself repeatedly, and overflows the buffer / throws the error
