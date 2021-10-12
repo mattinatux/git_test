@@ -829,4 +829,41 @@ Problem Solving in JavaScript
                     }
                     }
 
+    COMMENTS explain CODE to programmers? No.
+        CODE explains COMMENTS to the computer. Break it up and map it out in english first!
+
+        Try writing code with comments first.
+            EX:
+                // this is the first step
+                // this is the second step i decided
+                // this is the third step i decided
+                . . .
+            THEN:
+                // this is the first step
+                do {x} while (y);
+                // this is the second step i decided
+                . . .
+                // this is the third step i decided
+                . . .
+
+    Create your algorithm
+        or, a "recipe"
+
+        New variable algorithm (when making a new one): Create a variable called NAME of type TYPE that starts with the value INITVAL.
+    
+        Input algorithm:
+            variable: where answer from user will be STORED. you gotta put out your baseball mit first if you want to catch a ball from someone else.
+            message: question being asked of the user
+            algorithm: ask the user MESSAGE and store the answer in VARIABLE
+
+    UNDERSTANDING / ALGORITHMS -> IMPLEMENTATION -> DEBUG
+    ^ Can't google this one         ^ Can google    ^ Can google
+
+    When debugging, don't start with a solution. 
+        Are there things you don't understand? 
+        Are you making assumptions that you cannot make?
+        Are the right tools being used?
+
+
 Understanding Errors
+
