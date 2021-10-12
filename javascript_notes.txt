@@ -867,3 +867,30 @@ Problem Solving in JavaScript
 
 Understanding Errors
 
+    ReferenceError
+        thrown when one refers to a variable that is not declared and/or initialized within the current scope
+
+    SyntaxError
+        when the code you are trying to run is not written correctly
+    
+    TypeError
+        when:
+        - an operand or argument passed to a function is incompatible with the type expected by that operator or function;
+        - or when attempting to modify a value that cannot be changed;
+        - or when attempting to use a value in an inappropriate way.
+
+        EX: TypeError: str1.push is not a function.
+            - We know .push() is a function.
+            - It is used to add items to an array.
+            - So it is a function of another function, which is a method.
+            - And this specific method is not a STRING method, but an ARRAY method.
+
+    Errors tell you what is wrong and where to find it. TOP talks about line #s, etc.
+
+    Reference error will show stack trace, too.
+
+    Good list of some common errors: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_went_wrong
+
+    Errors vs Warnings
+        Errors stop execution.
+        Warnings give insight to /potential/ problems.
