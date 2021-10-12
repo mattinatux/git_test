@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+    <button>I do nothing</button>
+    <p>And I tell you pointless info.</p>
+    <div>And I tell you that there is some JavaScript in this code...</div>
+  <script>
+
+    // 1 - take one number and return # + 7
+    let add7 = (number) => Number(number) + 7;
+    let numberInput = prompt("What's the number?");
+    alert(add7(numberInput));
+
+    // 2 - take two numbers, multiply them, and return product
+    function multiply(factor1, factor2) {
+      return factor1 * factor2;
+    }
+    alert(multiply(3,5));
+
+    // 3 - takes string and returns w/ first letter capitalized only (no matter input casing)
+    function capitalize(stringInput) {
+      let stringLower = stringInput.toLowerCase();
+      let stringProper = stringLower.replace(stringLower.charAt(0),stringLower.charAt(0).toUpperCase());
+      return stringProper;
+    }
+    alert(capitalize('hi BUddy'));
+
+    // 4 - takes string and returns the last latter
+    function lastLetter(stringInput) {
+      return stringInput.slice(-1);
+    }
+    alert(lastLetter('WhaTA tiMEe it is'))
+
+  </script>
+</body>
+</html>
