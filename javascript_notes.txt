@@ -714,3 +714,119 @@ TOP Fundamentals Part 3
 
         Stack overflow
             E.g., function foo() { return foo(); } // returns itself, so calls itself repeatedly, and overflows the buffer / throws the error
+
+
+Problem Solving in JavaScript
+    “The biggest mistake I see new programmers make is focusing on learning syntax instead of learning how to solve problems.” — V. Anton Spraul
+
+    1. Understand - “If you can’t explain something in simple terms, you don’t understand it.” — Richard Feynman
+        Draw it
+        Reword it
+        Know what successful solving looks like
+    2. Plan - Reduce the problem to the point where you know how to solve it and write the solution. Then expand the problem slightly and rewrite the solution to match, and keep going until you are back where you started.” — V. Anton Spraul
+        This is the design phase.
+        UI? Sketch it.
+        Inputs needed? Manual or user?
+        Desired output?
+        Given the inputs, what steps are necessary to return desired output?
+            ^^^ This is the "recipe"
+        Use pseudo code to help with planning it out
+            when user inputs number
+                initialize a counter and set it to zero
+                while the counter is less than user input number, increment counter by 1
+                print value of counter variable
+            end program
+    3. Split big problems into small problems
+        start with the simple problem, moving to the harders, but keep them separate to minimize misses
+        “The art of debugging is figuring out what you really told your program to do rather than what you thought you told it to do.”” — Andrew Singer
+    (4.) PRACTICE
+        Solve a problem daily on coderbyte?
+        Paly video games that utilize problem solving skills?
+        What other problems can be solved to help overall problem solving?
+
+    Fizz Buzz problem - https://en.wikipedia.org/wiki/Fizz_buzz
+
+        Fizz buzz (often spelled FizzBuzz in this context) has been used as an interview screening device 
+        for computer programmers. Writing a program to output the first 100 FizzBuzz numbers is a relatively 
+        trivial problem requiring little more than a loop and conditional statements. However, its value in 
+        coding interviews is to analyze fundamental coding habits that may be indicative of overall coding 
+        ingenuity. [Wikipedia]
+
+        Write a program that takes a user’s input and prints the numbers from one to the number the user 
+        entered. However, for multiples of three print Fizz instead of the number and for the multiples of 
+        five print Buzz. For numbers which are multiples of both three and five print FizzBuzz. [TOP]
+
+            Take user input
+                do print the incremented number starting at 0 until the incremented number equals user input
+                    if incremented number is a multiple of 3 && divisible by 5, replace the oyutput with "FizzBuzz"
+                    elseif incremented number is a multiple of 3, replace the output with "Fizz" and increment number by 1
+                    elseif incremented number is divisible by 5 without a remainder, replace output with "Buzz"
+                    else print the number before incrementing it
+            
+            input: user number
+
+            functions:
+                multiple3
+                divisible5
+
+            // Take the input
+            const userInput = parseInt(prompt("Pick a number.")); // parseInt makes sure we get a Number (no need to force that later, nice)
+            
+            This didn't really pan out, but keeping anyway. I think the main issues (without much investigation) are:
+            - A for-loop would be better here.
+            - The functions aren't bad, but might be too complex for the task
+            - *** I didn't actually evaluate the results of the function to see if a number or fizz/buzz. could implement the evaluation to make it work. but that is complex.
+
+                    // Starting the incrementing counter
+                    let counter = 1;
+                    
+                    // Functions to do the work
+                    function multiple3(counter) {
+                        if ((counter % 3) === 0) {
+                            return "Fizz";
+                        }
+                    }
+
+                    function divisible5(counter) {
+                        if ((counter % 5) === 0) {
+                            return "Buzz";
+                        }
+                    }
+
+                    function fizzBuzz(counter) {
+                        if (divisible5(counter) && multiple3(counter)) {
+                            return "FizzBuzz";
+                        }
+                    }
+
+                    // do-while loop
+                    do {
+                    if (isNaN(fizzBuzz(counter))) {
+                        console.log("FIZZBUZZ" // I kinda stopped at this point. Let's try again.
+                    }
+                    console.log(counter);
+                    alert(fizzBuzz(counter));
+                    alert(multiple3(counter));
+                    divisible5(counter);
+                    counter++;
+                    }
+                    while (counter <= userInput);
+            
+            Updated code: javascript_fundies-fizzbuzz.html
+                    // Take the input
+                    const userInput = parseInt(prompt("Pick a number.")); // parseInt makes sure we get a Number (no need to force that later, nice)
+                    
+                    // Set up the loop
+                    for (let i = 1; i <= userInput; i++) {
+                    if ((i % 3 === 0) && (i % 5 === 0)) {
+                        console.log("FizzBuzz");
+                    } else if (i % 3 === 0) {
+                        console.log("Fizz");
+                    } else if (i % 5 === 0) {
+                        console.log("Buzz");
+                    } else {
+                        console.log(i);
+                    }
+                    }
+
+Understanding Errors
