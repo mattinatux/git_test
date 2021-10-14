@@ -13,8 +13,16 @@ INTRO: SELF TEST AS YOU GO
     What are assignment operators?
     What is the “Unary +” Operator?
 
+Good (clean) Code Topics:
 Comments: // at beginning of line
+Identation: doesn't matter, just recommended
+Semicolons: mostly optional b/c compiler catches it, but YOU SHOULD STILL DO IT
+Line length: doesn't matter, try to keep <= 80 characters.
+    if going multiple lines, break at operator or comma and indent
+Naming things: descriptive names are good.
 
+
+Writing Code:
 console.log("Hello, World!")
     - You can view this in the developer tooler > console. Handy for... debugging?
 
@@ -24,6 +32,7 @@ variables
         2. let: most common, new way
         
         3. const: an unchanging variable, cannot be reassigned
+            - BUT, if an array, you can change, append, etc. a const var just fine
 
         ** if files contains: "use strict";  then variables MUST be declared before use
         ** by default, use strict is not used. as such, you can declare a variable by assignment only (like PowerShell)
@@ -894,3 +903,231 @@ Understanding Errors
     Errors vs Warnings
         Errors stop execution.
         Warnings give insight to /potential/ problems.
+    
+
+Fundamentals Part 4
+    ARRAYS vs OBJECTS in JavaScript
+        Arrays use numbered indexes
+        Objects use named indexes
+
+        When to use?
+            Objects IF you want the element names to be STRINGS.
+            Arrays when you want the lement names to be NUMBERS.
+
+        Need to check what you're working with?
+            typeof doesn't work, becuase arrays are objects, too. just special.
+
+            EX: isArray method
+                myArray.isArray(cats); // returns true
+
+            EX: instanceof operator
+                myArray instance of Array; // returns true
+
+    Arrays
+        create like this: const array_name = [item1, item2, . . .];
+
+        or like this:
+            let cars = [];
+            cars[0] = "Saab";
+            cars[1] = "Volvo";
+            . . .
+
+        it IS possible to create undefined "holes" in an array if you set an element
+            with a higher index. E.g., arr[0], arr[1], arr[9] can all be set,
+            and then 2-8 are "undefined".
+        
+        and you can use the method .push() to append more items to the array, EX:
+            cars.push("Honda");
+
+            POWERSHELL DOES IT WITH +=. THAT IS CONCANTENATION OF STRINGS IN JS.
+
+        DON'T use the keyword new, even though it works. It's unnecessary.
+            EX: let cars = new Array("car", "carr", "carrr");
+        INSTEAD use the array literal method, that we just saw.
+            EX: let cars = ["car", "carr", "carrr"];
+
+        Items accessible by index position
+            EX: cars[0] returns car; car[1] returns carr
+        
+        Array items are overwritable
+            EX: cars[0] = "Opel";
+        
+        Access full array by name
+            EX: cars;
+            EX: document.getElementById("carlist").innerHTML = cars;
+        
+        Arrays are Objects
+            store different types of variables in the one array object
+
+            Properties and Methods
+                .length // returns number of elements
+                .sort() // sorts the array
+        
+            EX: Accessing the first array element (item)
+                fruits[0]
+
+            EX: Accessing the last array element
+                fruits[fruits.length - 1];
+                    // fruits.length = count of array items starting at 1
+                    // beacause index starts at 0, must subtract 1 to get LAST item
+        
+        Array Methods!
+            .toString(); // results in: element one,element two,elementy three
+                Automatic toString(): JavaScript auto converts an array to a comma separated string when a primitive value is expected (like if inserting an array into an HTML element)
+            .join("<separator>"); // just like toString, but you name your separator, e.g., " * ", or ", "
+
+            .pop()
+                - removes the last item/element from the array
+                - returns the value that was "popped" out / removed
+            .push()
+                - adds a new item to the end of the array
+                - returns the new array.length
+            .shift()
+                - removes the first item/element from the array
+                - returns the value that was "shifted" out
+            .unshift()
+                - adds a new item to the beginning of the array
+                - returns the new array.length
+            
+            .length - PROPERTY, not a method, evident by no ()'s
+                - easy way to append new elements to the array
+                EX: cats[cats.length] = "New Cat";
+                    // why does this work? because cats.length
+                    // starts the count at 1. But indexes start
+                    // at 0. So length is always 1 ahead of index.
+            
+            delete - OPERATOR - prefer POP or SHIFT instead!!
+                - easy way to delete an element from a position
+                EX: delete cats[0];
+                    // this doesn't shift anything, but results in
+                    // index 0 being UNDEFINED
+                    // PREFER POP OR SHIFT INSTEAD!
+            
+            .splice()
+                - adds a new item to the array, IN A SPECIFIC position
+                - syntax: array.splice(<position to ADD>,<elements to REMOVE>, item1, item2, ...);
+                    position to add: 0 puts it at the beginning, 1 after the first item, etc.
+                    elements to remove: starts removing them at the position specified
+                - returns the deleted items (in an array)
+                - can be used to remove elements without leaving holes
+                EX: cats.splice(0, 1); // removes the first element, and returns it
+                    // first param says to start before first item
+                    // second param says to remove the next thing (the first item in array)
+                    // no additional params means nothing added to the array
+    
+            .concat()
+                - merges two arrays, e.g., myGirls and myBoys into myChildren
+                - returns the new array
+                - can take any number of arguments
+                - EX: syntax
+                    const myChildren = myGirls.concat(myBoys);
+                - EX: more arguments
+                    const ourBradyBunch = myGirls.concat(myBoys, yourGirls, yourBoys);
+                - EX: takes strings as arguments
+                    const ourNewFam = oldFam.concat("Baby Thing");
+            .slice()
+                - creates a new array from part of an existing array
+                - takes two arguments: where to start the slice and how many elements up to (but not including) the end argument
+                - returns the new array
+                - EX: syntax
+                    const myArray = ["one","two","three","four"];
+
+                    let myChoices = myArray.slice(1,3); // should return two and three
+
+            Max or Min - NOPE
+                - Yeah, no. JavaScript doesn't have a built in function or method for this.
+
+    Hash Tables? NOPE.
+        Named indexes (or, hash tables) are not supported.
+        Arrays in JS /always/ use numbered indexes.
+
+        "What if I try using a named index by saying person["first"] = "John"
+            instead of person[0] = "John"?"
+
+            Answer: JavaScript redfines your array as an object and you'll get
+            bad or unexpected results.
+
+    Loops
+        A loop usually has one or more of the following:
+            - A counter, initialized with a specific value
+            - A condition, to determine whether to run, keep running, or stop
+            - An iterator, to increment the counter
+
+        The standard FOR loop
+            Syntax:
+                for (initializer; condition; final-expression) {
+                    // code to run
+                }
+            Initializer: usually a variable set to a number, which is incremented to count the number of times the loop has run. sometimes referred to as a "counter variable"
+            Condition: defines when the loop should stop looping
+            Final-expression: this is always evaluated (run) each time the loop has gone through a full iteration. usually it serves to increment the counter.
+
+            You can skip any part of the for loop if you want, e.g., for (;condition;){//code}
+
+        break; // bounces ya out of that loop completely
+        continue; // like break, but it breaks out and skips to the NEXT ITERATION of the same loop
+        
+        While, and do ... while
+            Syntax: while loop
+                initializer
+                while (condition) {
+                    // code to run
+
+                    final-expression
+                }
+            
+            Syntax: do ... while loop
+                initializer
+                do {
+                    // code to run
+
+                    final-expression
+                } while (condition)
+            
+            *** What is the difference?
+                * The while loop evaluates the condition before running the code!
+                    UPSHOT: the thing MIGHT NOT be done at least once.
+                * The do...while loop evaluates the condition after running the code!
+                    UPSHOT: the thing WILL be done at least once.
+            
+            *** The for loop vs the while loop -- which one?
+                * The for loop is better suited for when you have a static number to count to
+                * The while loop is handy when you don't know how many iterations it will take to make it truthy
+
+        Looping Array Elements
+            EX: for loop
+                const cats = ["Monty", "Arla"];
+                let catsLength = cats.length;
+
+                let text;
+
+                text = "<ul>";
+
+                    for (let i = 0; i < catsLength; i++) {
+                        text += "<li>" + cats[i] + "</li>";
+                    }
+                
+                text += "</ul>";
+            
+            EX: .forEach() method
+                const cats = ["Monty", "Arla"];
+
+                let text = "<ul>";
+                cats.forEach(myFunction);
+                text += "</ul>";
+
+                function myFunction(value) {
+                    text += "<li>" + value + "</li>";
+                }
+        
+        EX: output even numbers in a loop
+            for (let i = 1; i < 11; i++) {
+                if (!(i % 2)) {
+                    alert(i);
+                }
+            }
+
+    Test Driven Development (TDD)
+        Writing test scripts for your code before you write the code
+        Goal is to make sure you know immediately when your code works, not guessing and checking
+        (More learning on this later)
