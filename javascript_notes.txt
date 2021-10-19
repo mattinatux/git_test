@@ -338,6 +338,7 @@ JavaScript Data types
                     - BEWARE: you can't set these. they are READ ONLY.
             .split(",") - splits on commas, like for a CSV import or somethin
                 - Results in the string converting to an array!
+                - If you use split(""), it will put each letter in separately (you can .join("") them back later if you need to)
     
     Boolean (logical type) - true or false
 
@@ -1009,11 +1010,11 @@ Fundamentals Part 4
                     position to add: 0 puts it at the beginning, 1 after the first item, etc.
                     elements to remove: starts removing them at the position specified
                 - returns the deleted items (in an array)
-                - can be used to remove elements without leaving holes
-                EX: cats.splice(0, 1); // removes the first element, and returns it
-                    // first param says to start before first item
-                    // second param says to remove the next thing (the first item in array)
-                    // no additional params means nothing added to the array
+                *** can be used to remove elements without leaving holes
+                    EX: cats.splice(0, 1); // removes the first element, and returns it
+                        // first param says to start before first item
+                        // second param says to remove the next thing (the first item in array)
+                        // no additional params means nothing added to the array
     
             .concat()
                 - merges two arrays, e.g., myGirls and myBoys into myChildren
