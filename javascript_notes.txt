@@ -1213,4 +1213,52 @@ DOM Manipulation
                     Why not just a <script> tag? they don't run on their own.
 
                     If you MUST use innerHTML, you must strip the HTML elements out so it can't render.
-            
+    
+    Events!
+        Three ways to do them:
+            1. Attach functions attributes directly on HTML elements
+            2. Set the "on_event_" property on the DOM object in your JS
+            3. (Preferred) Attach event listeners to the nodes in your JS
+        
+            1. <button onclick="alert('Hi')">Click me!</button>
+            2. HTML: set an ID on btn
+                JS: querySelect('#id'), then btn.onclick = () => alert('Hi');
+            3. HTML: set an ID on btn
+                JS: querySelect('#id'), then addEventListener('click', () => {alert('HI');})
+            Examples: ./javascript_fundies-events.js
+        
+            All three ways accept named functions as well.
+                1. button onclick="alertFunction()"
+                2. btn.onclick = alertFunction;
+                3. btn.addEventListener('click', alertFunction);
+        
+        Callbacks
+            btn.addEventListener('click', function (e) {
+                console.log(e);
+            })
+
+            "e" is a call back. It references the event itself.
+
+            Callbacks are functions passed into another function as an argument.
+
+            EX: let cats = ["monty", "arla"];
+                cats.forEach((cat) => {console.log(cat);})
+        
+        Efficient Attachment
+            Can attach event listeners to many elements by iterating through the list
+
+            EX: const buttons = document.querySelectorAll('button'); // buttons is a node list
+                buttons.forEach( (button) => { // forEach method iterates through each button
+                    button.addEventListener('click', () => {
+                        alert(button.id); // and for each one of them, add the click listener
+                    })
+                })
+        
+        Some common useful events:
+            - click
+            - dblclick
+            - keypress
+            - keydown
+            - keyup
+            https://www.w3schools.com/jsref/dom_obj_event.asp
+
