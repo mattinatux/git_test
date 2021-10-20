@@ -1132,3 +1132,85 @@ Fundamentals Part 4
         Writing test scripts for your code before you write the code
         Goal is to make sure you know immediately when your code works, not guessing and checking
         (More learning on this later)
+
+DOM Manipulation
+    Document Object Model
+
+    When working with DOM, use selectors to choose nodes you work with.
+    - CSS-style selectors
+        EX: div.main
+        EX: .main
+        EX: #id > .main
+        EX: div#id > div.main
+    - Relational selectors
+        EX: firstElementChild
+        EX: lastElementChild
+        EX: previousElementSibling
+    
+    DOM Methods
+        To select, use query selectors
+            element.querySelector(selector) returns reference to the first match of selector
+            element.querySelectorAll(selectors) returns a "nodelist" containing references to all of the matches of the selectors
+                - NOTE: not an array. is a nodelist. can convert to array if you want (Array.from() or the spread operator)
+            
+        To create a new element (just in memory, not yet inserted in DOM)
+            Function example: const div = document.createElement('div');
+        
+        Manipulating elements
+            IMPORTANT! JavaScript runs when the script tag is encountered. DOM
+            manipulation works best when JS runs after nodes are created in
+            DOM. Options: Make sure <script> is at the end of your HTML. If
+            using <script> in the <head>, add "defer" keyword (<script src='js-file.js' defer></script>)
+
+            Append
+                parentNode.appendChild(childNode()
+                parentNode.insertBefore(newNode, referenceNode)
+            
+            Remove
+                parentNode.removeChild(child)
+            
+            Alter
+                Can do things like change attributes, classes, inline style, etc
+
+                const div = document.createElement('div');
+                EX: div.style.color = 'blue';
+                EX: div.style['background-color']; // brackets are used for kebab-cased CSS rules! ***
+                EX: div.style.cssText = 'color: blue; background: white';
+                EX: div.setAttribute('style', 'color: blue; background white');
+
+            Editing attributes
+                div.setAttribute('id', 'theDiv');
+                    // if id exists, update it to "theDiv", else create an id with value "theDiv"
+                
+                div.getAttribute('id');
+
+                div.removeAttribute('id');
+            
+            Working with classes
+                div.classList.add('new');
+                    //adds class "new" to your div
+                
+                div.classList.remove('new');
+
+                div.classList.toggle('active');
+                    //if it has the class, remove it; if it doesn't, add it.
+                    // often it is cleaner to toggle than to add and remove styles! ***
+
+            Adding text content
+                div.textContent = 'Hello World!';
+                    // creates a text node containing "Hello world!" and inserts it in the div
+                
+            Adding HTML content
+                div.innerHTML = '<span>Hello World!</span>'
+
+                .innerText is another good option instead of .textContent possibly
+            
+                NOTE: textContent is preferred. innerHTML can create security risks if misused.
+                    https://www.youtube.com/watch?v=ns1LX6mEvyM&ab_channel=WebDevSimplified
+                    Example is someone using <img src onerror="alert('hi')">
+                    Because when am img src is blank, it can do the "on error" bit
+                    If you're using innerHTML in your site, you COULD be vulnerable to that type of injection
+                    Why not just a <script> tag? they don't run on their own.
+
+                    If you MUST use innerHTML, you must strip the HTML elements out so it can't render.
+            
