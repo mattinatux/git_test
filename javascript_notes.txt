@@ -1222,9 +1222,9 @@ DOM Manipulation
         
             1. <button onclick="alert('Hi')">Click me!</button>
             2. HTML: set an ID on btn
-                JS: querySelect('#id'), then btn.onclick = () => alert('Hi');
+                JS: button.querySelector('#id'), then btn.onclick = () => alert('Hi');
             3. HTML: set an ID on btn
-                JS: querySelect('#id'), then addEventListener('click', () => {alert('HI');})
+                JS: button.querySelector('#id'), then addEventListener('click', () => {alert('HI');})
             Examples: ./javascript_fundies-events.js
         
             All three ways accept named functions as well.

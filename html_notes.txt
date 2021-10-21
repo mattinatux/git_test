@@ -1,0 +1,9 @@
+data key attributes
+    - remnany from wild west of html days when
+        people made up whatever they wanted
+        as tag attributes.
+    - IF you want to make up your own attribute,
+        (think <img src="">, where src is an
+        attribute), it has to be preceeded by
+        data-.
+    EX: <img src="" data-key="whatever">
