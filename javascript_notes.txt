@@ -1262,3 +1262,184 @@ DOM Manipulation
             - keyup
             https://www.w3schools.com/jsref/dom_obj_event.asp
 
+
+JavaScript - Objects (Fundamentals Part 5)
+    Objects... one of the 8 data types in JavaScript
+        https://javascript.info/object
+        Objects store keyed collections of data and complex entities
+    
+    How to create an empty object:
+        1. let user = new Object(); // this is the "object constructor" syntax
+        2. let user = {}; // this is "object literal" syntax
+        Both are valid
+    
+    Literals and Properties
+        EX: Putting properties into an object literal as key: value pairs
+            let user = {        // an object
+                name: "John",   // by key "name" store value "John"
+                age: 30         // by key "age" store value 30
+            };
+        
+        name or identifier: value
+
+        EX: Accessing property values with dot notation
+            user.name; // John
+            user.age; // 30
+
+            BUT YOU CAN'T DO THIS WITH MULTI-WORD NAMES, MUST USE SQUARE brackets
+                EX: user["name"];
+                EX: user["likes birds"];
+        
+        Values can be of any time (e.g., booleans, etc.)
+
+        EX: Adding a property / value
+            user.isAdmin = true; // adds the property name "isAdmin" and a value of "true"
+        
+        EX: Deleting a property / value
+            delete user.age;
+
+        EX: Can use multi-word property names if quoted
+            let user = {
+                name: "John",
+                "likes birds": true
+            };
+
+            JUST REMEMBER THAT ACCESSING THEM REQUIRES SQUARE brackets
+                EX: alert(user["likes birds"]);
+                or delete user["likes birds"];
+        
+        Square brackets vs Dot notation
+            Pretty much the same EXCEPT...
+                A) square brackets can reference a property name that is calculated at runtime
+                B) square brackets can use COMPUTED PROPERTIES when creating the literal
+            
+            Example A: let key = prompt("What do you want to know about the user?", "name");
+                EX 1: This works with square brackets
+                    alert (user[key]); // returns John for name
+                EX 2: This does not work with dot notation
+                    alert (user.key); // returns undefined
+
+            Example B: let fruit = prompt("Which fruit to buy?", "apple");
+                EX 1:
+                    let bag = {
+                        [fruit]: 5,
+                    };
+                
+                Works the same as EX 2:
+                    let bag = {};
+                    bag[fruit] = 5;
+                
+                And can be called with the dot notation if you wish:
+                    alert (bag.apple);
+    
+    Property Value Shorthand
+        It is common to use existing variables as values for property names
+        So if you're setting a variable for "userName", then it's like that you use "userName: userName," for your object.
+        Because this is so common, there is shorthand for it. Just type it like "userName,", that is, without the colon + value.
+
+        EX:
+            function makeUser(name, age) {
+                return {
+                    name,
+                    age,
+                };
+            }
+
+            let user = makeUser("John",30);
+            alert(user.name;) // John
+
+            *** Why is there no let statement inside the function (when creating the object)?
+            *** Because inside the function is just creating the object, the assignment happens at run time. The whole object is being returned when setting the variable / invoking the function.
+    
+    Specific to JavaScript: ALL properties are accessible even if they do not existing
+        They will return "undefined"
+            EX base: let user = {};
+            EX 1 - equivacy test: alert(user.thisPropertyDoesntExist === undefined ); // returns true, meaning "no such propetrty"
+            EX 2 - "in" operator: alert ("thisPropertyDoesntExist" in user); // returns false
+        
+        Should I compare against undefined or use the in operator?
+            Doesn't matter UNLESS an object prooperty exists with the explicit value of undefined.
+            let myObj = {test: undefined,}
+        
+    The "for...in" loop
+        - NOT the same as the for(;;) loop we already know
+        - Seriously, don't mix that up.
+        - This one executes code for each KEY among object properties
+        
+        Syntax:
+            for (key in object) {
+                //code
+            }
+
+        When is this useful? E.g., to output all properties of a "user" object
+        EX:
+            let user = {
+                name: "Matt",
+                age: 35,
+                isAdmin: true,
+            };
+        
+            for (let key in user) {
+                // show the keys, one at a time, starting a the first one (AKA names AKA identifiers)
+                console.log (key);  // name, age, isAdmin
+                // show the value for the current key (this isn't CSV stile, this is (Name: Matt), (Age: 35). . .)
+                console.log (user[key]);
+            }
+        
+        In that example, the looping variable "key" is declared in the for construct. All for constructs allow this.
+        It is common to see this done as "for (let prop in obj)"
+    
+    How are objects ordered? The way you enter the data? Something else?
+        Something else.
+            - integer properties are sorted in ascending order
+                I.e., a property name of "1" will always be ordered before property name "42"
+            - if non-integer, then sorted in order of creation
+    
+Array Methods
+    https://www.youtube.com/watch?v=HB1ZC7czKRs
+
+    "Gateway drug to functional programming"
+
+    Working through Youtube video here: /Volumes/drivemecrazy/TOP/git/JavaScript30/04 - Array Cardio Day 1/index-START.html
+     (array cardio day 1)
+
+    - How does filter work?
+        - You pass it a function and that function loops over everything in the array
+        EX: objs.filter(function(obj) {//stuff to return true if you want to "keep" that property})
+        - If the function returns true, then you will get all available properties and values
+        EX: const fifteen3 = inventors.filter(inventor => inventor.year >= 1500 & inventor.year < 1600);
+    
+    - How does map work?
+        - It takes in an ARRAY
+        - Does something with it
+        - Returns new array of the SAME length
+            Think of it this way.
+            Filter gives you all the info back for anything truthy.
+            Map giveth what you asketh of it.
+        EX: const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    
+    - How does sort work?
+        - It takes two things and decides who goes higher or lower
+            YES... TWO THINGS. DON'T THINK IT JUST MAGICALLY SORTS THEM ALL AT ONCE...
+        - The function you give it helps it understand how to make this determination
+        - When something should go higher, you want it to have a value of "1" so it bubbles UP
+        - When something should go lower in the array, you want it to have a value of -1, so it bubbles DOWN
+        EX:
+            const ordered = inventors.sort(function(firstPerson, secondPerson) {
+            if (firstPerson.year > secondPerson.year) {
+                return 1;
+            } else {
+                return -1;
+            }
+            });
+            console.table(ordered);
+        EX 2 - with ternary operator:
+            const ordered2 = inventors.sort((firstPerson, secondPerson) => firstPerson.year > secondPerson.year ? 1 : -1);
+
+    - How does reduce work?
+        - It gives you a running total that you're returning from the function
+        EX:    
+        const totalYears = inventors.reduce((total, inventor) => {
+            return total + (inventor.passed - inventor.year);
+            }, 0);
+        console.log(totalYears);

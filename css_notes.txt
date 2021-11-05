@@ -31,8 +31,8 @@ If you want to apply a certain style to a selector IFF it is a descendant of ano
 	.ancestor .contents { color: red; }
 	APPLIES TO
 	<div class="ancestor">not here, this is the parent (and note, I'm not closing the div here)
-	<div class="contents">but here, because this is the child of it all</div>
-	<div class="contents">and here, because this is also under the ancestor div</div>
+		<div class="contents">but here, because this is the child of it all</div>
+		<div class="contents">and here, because this is also under the ancestor div</div>
 	</div>
 
 You can nest as deep as you want to target a specific child!
