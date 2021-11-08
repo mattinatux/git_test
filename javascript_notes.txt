@@ -1403,13 +1403,13 @@ Array Methods
     Working through Youtube video here: /Volumes/drivemecrazy/TOP/git/JavaScript30/04 - Array Cardio Day 1/index-START.html
      (array cardio day 1)
 
-    - How does filter work?
+    - How does .filter work?
         - You pass it a function and that function loops over everything in the array
         EX: objs.filter(function(obj) {//stuff to return true if you want to "keep" that property})
         - If the function returns true, then you will get all available properties and values
         EX: const fifteen3 = inventors.filter(inventor => inventor.year >= 1500 & inventor.year < 1600);
     
-    - How does map work?
+    - How does .map work?
         - It takes in an ARRAY
         - Does something with it
         - Returns new array of the SAME length
@@ -1418,7 +1418,7 @@ Array Methods
             Map giveth what you asketh of it.
         EX: const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
     
-    - How does sort work?
+    - How does .sort work?
         - It takes two things and decides who goes higher or lower
             YES... TWO THINGS. DON'T THINK IT JUST MAGICALLY SORTS THEM ALL AT ONCE...
         - The function you give it helps it understand how to make this determination
@@ -1436,10 +1436,56 @@ Array Methods
         EX 2 - with ternary operator:
             const ordered2 = inventors.sort((firstPerson, secondPerson) => firstPerson.year > secondPerson.year ? 1 : -1);
 
-    - How does reduce work?
+    - How does .reduce work?
         - It gives you a running total that you're returning from the function
         EX:    
         const totalYears = inventors.reduce((total, inventor) => {
             return total + (inventor.passed - inventor.year);
             }, 0);
         console.log(totalYears);
+
+    MORE ARRAY FUN! https://www.youtube.com/watch?v=QNmRfyNg1lw
+        /Volumes/drivemecrazy/TOP/git/JavaScript30/07 - Array Cardio Day 2
+    
+    - How does .some work?
+        - It checks to see if at least 1 item matches what you're looking for
+        - Takes a function that provides the logic for checking
+        EX:
+            const isAdult = people.some(function(person) {
+                const curYear = (new Date()).getFullYear();
+                if (curYear - person.year >= 19) {
+                    return true;
+                }
+            });
+            // This will return a single "TRUE" iff at least one of people in the
+            // person object is >= 19 years old
+    
+    - How does .every work?
+        - Just like .some, but ALL must be true
+        - Example just like .some, but with .every
+    
+    - How does .find work?
+        - Like filter, but instead of returning a subset (all items matching), returns the first one it finds
+        - Runs the function against it for the logic (in JS, functions are everywhere)
+    
+    - How does .findIndex work?
+        - Gives you the index # of the item so you can manipulate it
+        - E.g., if you want to delete an item from the array
+        - BE CAREFUL: if you have any duplicate values, this one works like find... it returns the FIRST one
+    
+    New operator! "Spread", represented by elipses
+        https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+        EX: {...comments} // takes an array and puts all key value pairs directly into a new object
+        > {...comments}
+            {0: {…}, 1: {…}, 2: {…}}
+            0: {text: 'Super good', id: 823423}
+            1: {text: 'You are the best', id: 2039842}
+            2: {text: 'Ramen is my fav food ever', id: 123523}
+            [[Prototype]]: Object
+        > comments
+            (3) [{…}, {…}, {…}]
+            0: {text: 'Super good', id: 823423}
+            1: {text: 'You are the best', id: 2039842}
+            2: {text: 'Ramen is my fav food ever', id: 123523}
+            length: 3
+            [[Prototype]]: Array(0)
