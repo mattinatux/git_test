@@ -1444,6 +1444,8 @@ Array Methods
             }, 0);
         console.log(totalYears);
 
+        - More notes within this script file: /Volumes/drivemecrazy/TOP/git/javascript-exercises/08_calculator/calculator.js
+
     MORE ARRAY FUN! https://www.youtube.com/watch?v=QNmRfyNg1lw
         /Volumes/drivemecrazy/TOP/git/JavaScript30/07 - Array Cardio Day 2
     
